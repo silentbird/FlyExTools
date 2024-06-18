@@ -1,0 +1,14 @@
+{
+    "name": "Unity.silentbird.edit",
+    "references": [
+        "Unity.silentbird.pure"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
