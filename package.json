@@ -1,9 +1,9 @@
 {
-  "name": "com.browar.editor-toolbox",
-  "displayName": "Editor Toolbox",
-  "version": "0.12.12",
-  "unity": "2018.1",
-  "description": "Tools, custom attributes, drawers, hierarchy overlay, and other extensions for the Unity Editor.",
+  "name": "com.silentbird.fly-extools",
+  "displayName": "Fly ExTools",
+  "version": "0.0.1",
+  "unity": "2018.4",
+  "description": "Tools for the Unity Editor.",
   "keywords": [
     "editor",
     "attribute",
@@ -13,12 +13,11 @@
   ],
   "category": "editor extensions",
   "dependencies": {
-    "com.unity.editorcoroutines": "1.0.0"
   },
   "author": {
-    "name": "BroWar Collective",
-    "email": "milosz.matkowski96@gmail.com",
-    "url": "https://github.com/arimger"
+    "name": "Silent Bird",
+    "email": "silentbird520@outlook.com",
+    "url": "https://github.com/silentbird"
   },
   "publishConfig": {
     "registry": "https://package.openupm.com"
