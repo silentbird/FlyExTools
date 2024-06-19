@@ -1,10 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: pure.database.ValuePool`1
-// Assembly: pure, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 7542460E-F99E-4B4A-91E2-6B1672E9BAD8
-// Assembly location: D:\W\UnityProj\PluginsProj\Assets\Plugins\Win\csharp\pure.dll
-
-using pure.utils.memory;
+﻿using pure.utils.memory;
 using System;
 using System.Collections.Generic;
 

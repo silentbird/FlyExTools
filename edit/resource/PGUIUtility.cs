@@ -33,16 +33,16 @@ namespace edit.resource {
 		private static float getFieldWidth() => EditorGUIUtility.fieldWidth;
 
 
-		public static void Space() => PGUIUtility.Space(6f);
+		public static void Space() => Space(6f);
 
 		public static void Space(float pixels) => GUILayoutUtility.GetRect(pixels, pixels);
 
 		private static void setupSeperator() {
-			if (PGUIUtility.seperator != null)
+			if (seperator != null)
 				return;
-			PGUIUtility.seperator = new GUIStyle() {
+			seperator = new GUIStyle {
 				normal = {
-					background = PGUIUtility.ColorToTex(1, new Color(0.6f, 0.6f, 0.6f))
+					background = ColorToTex(1, new Color(0.6f, 0.6f, 0.6f))
 				},
 				stretchWidth = true,
 				margin = new RectOffset(0, 0, 7, 7)
@@ -50,27 +50,27 @@ namespace edit.resource {
 		}
 
 		public static void BeginChangeCheck() {
-			PGUIUtility.changeStack.Push(GUI.changed);
+			changeStack.Push(GUI.changed);
 			GUI.changed = false;
 		}
 
 		public static bool EndChangeCheck() {
 			bool changed = GUI.changed;
-			if (PGUIUtility.changeStack.Count > 0) {
-				GUI.changed = PGUIUtility.changeStack.Pop();
-				if (changed && PGUIUtility.changeStack.Count > 0 && !PGUIUtility.changeStack.Peek()) {
-					PGUIUtility.changeStack.Pop();
-					PGUIUtility.changeStack.Push(true);
+			if (changeStack.Count > 0) {
+				GUI.changed = changeStack.Pop();
+				if (changed && changeStack.Count > 0 && !changeStack.Peek()) {
+					changeStack.Pop();
+					changeStack.Push(true);
 				}
 			}
 			else
-				Debug.LogWarning((object)"Requesting more EndChangeChecks than issuing BeginChangeChecks!");
+				Debug.LogWarning("Requesting more EndChangeChecks than issuing BeginChangeChecks!");
 
 			return changed;
 		}
 
 		public static bool Foldout(bool foldout, string content, params GUILayoutOption[] options) {
-			return PGUIUtility.Foldout(foldout, new GUIContent(content), options);
+			return Foldout(foldout, new GUIContent(content), options);
 		}
 
 		public static bool Foldout(
@@ -78,11 +78,11 @@ namespace edit.resource {
 			string content,
 			GUIStyle style,
 			params GUILayoutOption[] options) {
-			return PGUIUtility.Foldout(foldout, new GUIContent(content), style, options);
+			return Foldout(foldout, new GUIContent(content), style, options);
 		}
 
 		public static bool Foldout(bool foldout, GUIContent content, params GUILayoutOption[] options) {
-			return Application.isPlaying ? PGUIUtility.Foldout(foldout, content, GUI.skin.toggle, options) : EditorGUILayout.Foldout(foldout, content);
+			return Application.isPlaying ? Foldout(foldout, content, GUI.skin.toggle, options) : EditorGUILayout.Foldout(foldout, content);
 		}
 
 		public static bool Foldout(
@@ -94,7 +94,7 @@ namespace edit.resource {
 		}
 
 		public static bool Toggle(bool toggle, string content, params GUILayoutOption[] options) {
-			return PGUIUtility.Toggle(toggle, new GUIContent(content), options);
+			return Toggle(toggle, new GUIContent(content), options);
 		}
 
 		public static bool Toggle(
@@ -102,11 +102,11 @@ namespace edit.resource {
 			string content,
 			GUIStyle style,
 			params GUILayoutOption[] options) {
-			return PGUIUtility.Toggle(toggle, new GUIContent(content), style, options);
+			return Toggle(toggle, new GUIContent(content), style, options);
 		}
 
 		public static bool Toggle(bool toggle, GUIContent content, params GUILayoutOption[] options) {
-			return Application.isPlaying ? PGUIUtility.Toggle(toggle, content, GUI.skin.toggle, options) : EditorGUILayout.ToggleLeft(content, toggle, options);
+			return Application.isPlaying ? Toggle(toggle, content, GUI.skin.toggle, options) : EditorGUILayout.ToggleLeft(content, toggle, options);
 		}
 
 		public static bool Toggle(
@@ -126,12 +126,12 @@ namespace edit.resource {
 			}
 
 			tex.Apply();
-			((Texture)tex).wrapMode = (TextureWrapMode)0;
+			tex.wrapMode = 0;
 			return tex;
 		}
 
 		public static Texture2D ColorToTex(int pxSize, string colorName) {
-			return PGUIUtility.ColorToTex(pxSize, PGUIUtility.ToColor(colorName));
+			return ColorToTex(pxSize, ToColor(colorName));
 		}
 
 		public static Color ToColor(string colorName) {
@@ -140,11 +140,11 @@ namespace edit.resource {
 			if (colorName.StartsWith("0x"))
 				colorName = colorName.Replace("0x", string.Empty);
 			uint num = uint.Parse(colorName, NumberStyles.HexNumber);
-			return new Color() {
-				a = (float)(num >> 24 & (uint)byte.MaxValue) / (float)byte.MaxValue,
-				r = (float)(num >> 16 & (uint)byte.MaxValue) / (float)byte.MaxValue,
-				g = (float)(num >> 8 & (uint)byte.MaxValue) / (float)byte.MaxValue,
-				b = (float)(num & (uint)byte.MaxValue) / (float)byte.MaxValue
+			return new Color {
+				a = (num >> 24 & byte.MaxValue) / (float)byte.MaxValue,
+				r = (num >> 16 & byte.MaxValue) / (float)byte.MaxValue,
+				g = (num >> 8 & byte.MaxValue) / (float)byte.MaxValue,
+				b = (num & byte.MaxValue) / (float)byte.MaxValue
 			};
 		}
 	}

@@ -1,14 +1,7 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: edit.assets.AssetInfoExtension
-// Assembly: edit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 3ADECF35-F68B-48ED-B268-19248EA3422D
-// Assembly location: D:\W\UnityProj\PluginsProj\Assets\Plugins\Win\csharp\edit.dll
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
-
 
 namespace edit.assets
 {
@@ -24,7 +17,7 @@ namespace edit.assets
     internal static void CollectDepencies(this string assetPath, ICollection<string> to)
     {
       string input = File.ReadAllText(assetPath);
-      MatchCollection matchCollection = AssetInfoExtension.s_extra_reg.Matches(input);
+      MatchCollection matchCollection = s_extra_reg.Matches(input);
       for (int i = 0; i < matchCollection.Count; ++i)
       {
         string guid = AssetDatabase.AssetPathToGUID("Assets/" + matchCollection[i].Groups[1].Value);

@@ -1,13 +1,6 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: edit.assets.AssetInfo
-// Assembly: edit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 3ADECF35-F68B-48ED-B268-19248EA3422D
-// Assembly location: D:\W\UnityProj\PluginsProj\Assets\Plugins\Win\csharp\edit.dll
-
+﻿using System.Collections.Generic;
 using pure.database;
 using pure.refactor.serialize;
-using System.Collections.Generic;
-
 
 namespace edit.assets
 {
@@ -27,13 +20,13 @@ namespace edit.assets
     {
       using (ByteWriter ba1 = new ByteWriter())
       {
-        ByteArrayTools.WriteString(ba1, this.guid, stringPool);
-        ByteArrayTools.WriteString(ba1, this.assetDependencyHash, stringPool);
-        ByteArrayTools.WriteString(ba1, this.name, stringPool);
-        ByteArrayTools.WriteString(ba1, this.path, stringPool);
-        ByteArrayTools.WriteString(ba1, this.bundleName, stringPool);
-        ByteArrayTools.WriteArray<string>(ba1, this.dependencies.ToArray(), stringPool);
-        ByteArrayTools.WriteArray<string>(ba1, this.references.ToArray(), stringPool);
+        ByteArrayTools.WriteString(ba1, guid, stringPool);
+        ByteArrayTools.WriteString(ba1, assetDependencyHash, stringPool);
+        ByteArrayTools.WriteString(ba1, name, stringPool);
+        ByteArrayTools.WriteString(ba1, path, stringPool);
+        ByteArrayTools.WriteString(ba1, bundleName, stringPool);
+        ByteArrayTools.WriteArray(ba1, dependencies.ToArray(), stringPool);
+        ByteArrayTools.WriteArray(ba1, references.ToArray(), stringPool);
         ba.WriteChild(ba1);
       }
     }
@@ -42,15 +35,15 @@ namespace edit.assets
     {
       using (IByteReader ba1 = ba.ReadChild())
       {
-        this.guid = ByteArrayTools.ReadString(ba1, stringPool);
-        this.assetDependencyHash = ByteArrayTools.ReadString(ba1, stringPool);
-        this.name = ByteArrayTools.ReadString(ba1, stringPool);
-        this.path = ByteArrayTools.ReadString(ba1, stringPool);
-        this.bundleName = ByteArrayTools.ReadString(ba1, stringPool);
-        this.dependencies.Clear();
-        this.dependencies.AddRange((IEnumerable<string>) ByteArrayTools.ReadArray<string>(ba1, stringPool));
-        this.references.Clear();
-        this.references.AddRange((IEnumerable<string>) ByteArrayTools.ReadArray<string>(ba1, stringPool));
+        guid = ByteArrayTools.ReadString(ba1, stringPool);
+        assetDependencyHash = ByteArrayTools.ReadString(ba1, stringPool);
+        name = ByteArrayTools.ReadString(ba1, stringPool);
+        path = ByteArrayTools.ReadString(ba1, stringPool);
+        bundleName = ByteArrayTools.ReadString(ba1, stringPool);
+        dependencies.Clear();
+        dependencies.AddRange(ByteArrayTools.ReadArray<string>(ba1, stringPool));
+        references.Clear();
+        references.AddRange(ByteArrayTools.ReadArray<string>(ba1, stringPool));
       }
     }
   }

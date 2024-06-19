@@ -2,14 +2,13 @@
 using UnityEditor;
 using UnityEngine;
 
-
 namespace edit.etui.utils {
 	public static class EditPrefabUtility {
 		public static GameObject GetPrefab(GameObject obj) {
 			switch ((int)PrefabUtility.GetPrefabAssetType(obj)) {
 				case 0:
 				case 4:
-					return (GameObject)null;
+					return null;
 				case 1:
 				case 2:
 				case 3:
@@ -17,10 +16,10 @@ namespace edit.etui.utils {
 						case 0:
 							return obj;
 						case 1:
-							return PrefabUtility.GetCorrespondingObjectFromSource<GameObject>(obj);
+							return PrefabUtility.GetCorrespondingObjectFromSource(obj);
 						case 2:
 						case 3:
-							return (GameObject)null;
+							return null;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}

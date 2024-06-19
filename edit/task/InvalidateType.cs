@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace pure.utils.task {
 	[Flags]
 	public enum InvalidateType {

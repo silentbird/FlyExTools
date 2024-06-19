@@ -1,17 +1,15 @@
-﻿using edit.resource;
-using pure.utils.color;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
+using edit.resource;
 using UnityEditor;
 using UnityEngine;
-
 
 namespace edit.gui {
 	public static class EditStyles {
 		public static readonly Color lineDark = EditorGUIUtility.isProSkin ? Color.black : new Color(0.2f, 0.2f, 0.2f, 1f);
 		public static readonly Color lineLight = EditorGUIUtility.isProSkin ? Color.gray : Color.white;
 		public static GUIContent NoneContent = new GUIContent("");
-		public static EditStyles.ErrorStyle Error;
+		public static ErrorStyle Error;
 		public static GUIStyle Border0;
 		public static GUIStyle Border1;
 		public static GUIStyle Border2;
@@ -25,7 +23,9 @@ namespace edit.gui {
 		public static GUIStyle ToolTip;
 		public static GUIStyle DropOver;
 		public static GUIStyle DropResult;
+
 		public static GUIStyle GreenLabel;
+
 		// public static readonly Color systemBlue = ColorUtils.StringToColor("4081EEFF");
 		public static GUIStyle boldLabel;
 		public static GUIStyle Label;
@@ -39,22 +39,22 @@ namespace edit.gui {
 		private static Dictionary<string, GUIStyle> style_pool = new Dictionary<string, GUIStyle>();
 
 		static EditStyles() {
-			EditStyles.BuildBorder();
-			EditStyles.build_selection_styles();
+			BuildBorder();
+			build_selection_styles();
 		}
 
 		private static void BuildBorder() {
-			EditStyles.Border0 = new GUIStyle() {
+			Border0 = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0xFF151515")
 				}
 			};
-			EditStyles.Border1 = new GUIStyle() {
+			Border1 = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0xff606060")
 				}
 			};
-			EditStyles.Border2 = new GUIStyle() {
+			Border2 = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0xffa0a0a0")
 				}
@@ -62,7 +62,7 @@ namespace edit.gui {
 		}
 
 		private static GUIStyle get_color_background(string color) {
-			return new GUIStyle() {
+			return new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, color)
 				},
@@ -76,7 +76,7 @@ namespace edit.gui {
 		}
 
 		private static void build_selection_styles() {
-			EditStyles.Selected0 = new GUIStyle() {
+			Selected0 = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0x664081EE"),
 					textColor = Color.white
@@ -89,7 +89,7 @@ namespace edit.gui {
 				clipping = (TextClipping)1,
 				contentOffset = Vector2.zero
 			};
-			EditStyles.GreenLabel = new GUIStyle(EditorStyles.label) {
+			GreenLabel = new GUIStyle(EditorStyles.label) {
 				normal = {
 					textColor = Color.green
 				},
@@ -97,38 +97,38 @@ namespace edit.gui {
 					textColor = Color.green
 				}
 			};
-			EditStyles.SelectedRed = EditStyles.get_color_background("0xffff0000");
-			EditStyles.SelectedGreen = EditStyles.get_color_background("0xff00ff00");
-			EditStyles.SelectedUnfocused = EditStyles.get_color_background("0x66909090");
-			EditStyles.DropOver = new GUIStyle() {
+			SelectedRed = get_color_background("0xffff0000");
+			SelectedGreen = get_color_background("0xff00ff00");
+			SelectedUnfocused = get_color_background("0x66909090");
+			DropOver = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0xFFAACAF6"),
 					textColor = Color.white
 				}
 			};
-			EditStyles.DropResult = new GUIStyle() {
+			DropResult = new GUIStyle {
 				normal = {
-					background = PResourceManager.LoadTexture("Icons/DropResultGrid.png")
+					background = PResourceManager.LoadTexture("icons/DropResultGrid.png")
 				},
 				border = new RectOffset(10, 10, 0, 0),
 				margin = new RectOffset(5, 5, 0, 0)
 			};
-			EditStyles.Hover = new GUIStyle() {
+			Hover = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0xFFDDDDAA"),
 					textColor = Color.white
 				}
 			};
-			EditStyles.None = new GUIStyle() {
+			None = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0x00000000")
 				}
 			};
-			EditStyles.Foldout = new GUIStyle(EditorStyles.foldout) {
+			Foldout = new GUIStyle(EditorStyles.foldout) {
 				contentOffset = new Vector2(0.0f, -1f),
 				padding = new RectOffset(0, 0, 0, 0)
 			};
-			EditStyles.ToolTip = new GUIStyle() {
+			ToolTip = new GUIStyle {
 				normal = {
 					background = PGUIUtility.ColorToTex(1, "0xFFFFFFCC"),
 					textColor = Color.black
@@ -138,71 +138,70 @@ namespace edit.gui {
 		}
 
 		private static bool isInvalid {
-			get { return EditStyles.Selected0 == null || !EditStyles.Selected0.normal.background; }
+			get { return Selected0 == null || !Selected0.normal.background; }
 		}
 
+
 		public static void Init() {
-			if (EditStyles.inited && !EditStyles.isInvalid)
+			if (inited && !isInvalid)
 				return;
-			Input.imeCompositionMode = (IMECompositionMode)1;
-			EditStyles.Label = new GUIStyle(GUI.skin.label) {
-				alignment = (TextAnchor)3,
-				clipping = (TextClipping)1,
+			Input.imeCompositionMode = IMECompositionMode.On;
+			Label = new GUIStyle(GUI.skin.label) {
+				alignment = TextAnchor.MiddleLeft,
+				clipping = TextClipping.Clip,
 				richText = true
 			};
-			EditStyles.SelectLabel = new GUIStyle(GUI.skin.label) {
-				alignment = (TextAnchor)3,
+			SelectLabel = new GUIStyle(GUI.skin.label) {
+				alignment = TextAnchor.MiddleLeft,
 				normal = {
 					textColor = Color.white
 				},
-				clipping = (TextClipping)1,
+				clipping = TextClipping.Clip,
 				richText = true
 			};
-			EditStyles.DisableLabel = new GUIStyle(GUI.skin.label) {
-				alignment = (TextAnchor)3,
+			DisableLabel = new GUIStyle(GUI.skin.label) {
+				alignment = TextAnchor.MiddleLeft,
 				normal = {
 					textColor = Color.gray
 				},
-				clipping = (TextClipping)1,
+				clipping = TextClipping.Clip,
 				richText = true
 			};
-			EditStyles.boldLabel = new GUIStyle(GUI.skin.label) {
-				alignment = (TextAnchor)3,
-				clipping = (TextClipping)1,
-				fontStyle = (FontStyle)1,
+			boldLabel = new GUIStyle(GUI.skin.label) {
+				alignment = TextAnchor.MiddleLeft,
+				clipping = TextClipping.Clip,
+				fontStyle = FontStyle.Bold,
 				richText = true
 			};
-			EditStyles.DropDown = new GUIStyle(EditorStyles.foldoutPreDrop) {
-				fontStyle = (FontStyle)0
+			DropDown = new GUIStyle("PreDropDown") {
+				fontStyle = FontStyle.Normal
 			};
-			EditStyles.BuildBorder();
-			EditStyles.build_selection_styles();
-			EditStyles.Error = new EditStyles.ErrorStyle();
-			EditStyles.inited = true;
+			BuildBorder();
+			build_selection_styles();
+			Error = new ErrorStyle();
+			inited = true;
 		}
 
 		public static void DrawHorizontalSeperator(float upSpace, float downSpace, GUIStyle style) {
-			EditStyles.Init();
-			if ((double)upSpace > 0.0)
+			Init();
+			if (upSpace > 0.0)
 				GUILayout.Space(upSpace);
-			GUILayout.Box("", style, new GUILayoutOption[1] {
-				GUILayout.Height(1f)
-			});
-			if ((double)downSpace <= 0.0)
+			GUILayout.Box("", style, GUILayout.Height(1f));
+			if (downSpace <= 0.0)
 				return;
 			GUILayout.Space(downSpace);
 		}
 
 		public static void DrawHorizontalSeperator() {
-			EditStyles.DrawHorizontalSeperator(5f, 2f, EditStyles.Border1);
+			DrawHorizontalSeperator(5f, 2f, Border1);
 		}
 
 		public static void DrawHorizontalSeperator(GUIStyle style) {
-			EditStyles.DrawHorizontalSeperator(5f, 2f, style);
+			DrawHorizontalSeperator(5f, 2f, style);
 		}
 
 		public static void DrawHorizontalSeperator(float upSpace, float downSpace) {
-			EditStyles.DrawHorizontalSeperator(upSpace, downSpace, EditStyles.Border1);
+			DrawHorizontalSeperator(upSpace, downSpace, Border1);
 		}
 
 		public static void DrawVerticalSeperator(
@@ -210,42 +209,39 @@ namespace edit.gui {
 			float leftSpace,
 			float rightSpace,
 			GUIStyle style) {
-			EditStyles.Init();
-			if ((double)leftSpace > 0.0)
+			Init();
+			if (leftSpace > 0.0)
 				GUILayout.Space(leftSpace);
-			GUILayout.Box("", style, new GUILayoutOption[2] {
-				GUILayout.Width(1f),
-				GUILayout.Height(height)
-			});
-			if ((double)rightSpace <= 0.0)
+			GUILayout.Box("", style, GUILayout.Width(1f), GUILayout.Height(height));
+			if (rightSpace <= 0.0)
 				return;
 			GUILayout.Space(rightSpace);
 		}
 
 		public static void DrawVerticalSeperator() {
-			EditStyles.DrawVerticalSeperator(18f, 5f, 5f, EditStyles.Border1);
+			DrawVerticalSeperator(18f, 5f, 5f, Border1);
 		}
 
 		public static void DrawVerticalSeperator(GUIStyle style) {
-			EditStyles.DrawVerticalSeperator(18f, 5f, 5f, style);
+			DrawVerticalSeperator(18f, 5f, 5f, style);
 		}
 
 		public static void DrawVerticalSeperator(float height) {
-			EditStyles.DrawVerticalSeperator(height, 5f, 5f, EditStyles.Border1);
+			DrawVerticalSeperator(height, 5f, 5f, Border1);
 		}
 
 		public static void DrawVerticalSeperator(float height, float leftSpace, float rightSpace) {
-			EditStyles.DrawVerticalSeperator(height, leftSpace, rightSpace, EditStyles.Border1);
+			DrawVerticalSeperator(height, leftSpace, rightSpace, Border1);
 		}
 
 		public static GUIStyle GetStyleFromUnityEnity(string styleName) {
 			GUIStyle styleFromUnityEnity;
-			if (!EditStyles.style_pool.TryGetValue(styleName, out styleFromUnityEnity)) {
+			if (!style_pool.TryGetValue(styleName, out styleFromUnityEnity)) {
 				PropertyInfo property = typeof(EditorStyles).GetProperty(styleName, BindingFlags.Static | BindingFlags.NonPublic);
-				Debug.Log((object)property);
-				styleFromUnityEnity = (GUIStyle)property?.GetValue((object)null, (object[])null);
+				Debug.Log(property);
+				styleFromUnityEnity = (GUIStyle)property?.GetValue(null, null);
 				if (styleFromUnityEnity != null)
-					EditStyles.style_pool.Add(styleName, styleFromUnityEnity);
+					style_pool.Add(styleName, styleFromUnityEnity);
 			}
 
 			return styleFromUnityEnity;
@@ -256,42 +252,41 @@ namespace edit.gui {
 			internal Texture2D iconWarn;
 			internal Texture2D iconError;
 			internal Texture2D iconWarnInactive;
-
 			internal Texture2D iconErrorInactive;
-			// internal GUIStyle info = new GUIStyle(GUIStyle.op_Implicit("CN EntryInfoIcon"))
-			// {
-			//   border = new RectOffset(0, 0, 0, 0),
-			//   margin = new RectOffset(0, 0, 0, 0)
-			// };
-			// internal GUIStyle error = new GUIStyle(GUIStyle.op_Implicit("CN EntryErrorIcon"))
-			// {
-			//   border = new RectOffset(0, 0, 0, 0),
-			//   margin = new RectOffset(0, 0, 0, 0)
-			// };
-			// internal GUIStyle warn = new GUIStyle(GUIStyle.op_Implicit("CN EntryWarnIcon"))
-			// {
-			//   border = new RectOffset(0, 0, 0, 0),
-			//   margin = new RectOffset(0, 0, 0, 0)
-			// };
+
+			internal GUIStyle info = new GUIStyle("CN EntryInfoIcon") {
+				border = new RectOffset(0, 0, 0, 0),
+				margin = new RectOffset(0, 0, 0, 0)
+			};
+
+			internal GUIStyle error = new GUIStyle("CN EntryErrorIcon") {
+				border = new RectOffset(0, 0, 0, 0),
+				margin = new RectOffset(0, 0, 0, 0)
+			};
+
+			internal GUIStyle warn = new GUIStyle("CN EntryWarnIcon") {
+				border = new RectOffset(0, 0, 0, 0),
+				margin = new RectOffset(0, 0, 0, 0)
+			};
 
 			internal ErrorStyle() {
 				MethodInfo method = typeof(EditorGUIUtility).GetMethod("LoadIcon", BindingFlags.Static | BindingFlags.NonPublic);
-				if (!(method != (MethodInfo)null))
+				if (!(method != null))
 					return;
-				this.iconInfo = (Texture2D)method.Invoke((object)null, new object[1] {
-					(object)"console.infoicon.sml"
+				iconInfo = (Texture2D)method.Invoke(null, new object[1] {
+					"console.infoicon.sml"
 				});
-				this.iconWarn = (Texture2D)method.Invoke((object)null, new object[1] {
-					(object)"console.warnicon.sml"
+				iconWarn = (Texture2D)method.Invoke(null, new object[1] {
+					"console.warnicon.sml"
 				});
-				this.iconWarnInactive = (Texture2D)method.Invoke((object)null, new object[1] {
-					(object)"console.warnicon.inactive.sml"
+				iconWarnInactive = (Texture2D)method.Invoke(null, new object[1] {
+					"console.warnicon.inactive.sml"
 				});
-				this.iconError = (Texture2D)method.Invoke((object)null, new object[1] {
-					(object)"console.erroricon.sml"
+				iconError = (Texture2D)method.Invoke(null, new object[1] {
+					"console.erroricon.sml"
 				});
-				this.iconErrorInactive = (Texture2D)method.Invoke((object)null, new object[1] {
-					(object)"console.erroricon.inactive.sml"
+				iconErrorInactive = (Texture2D)method.Invoke(null, new object[1] {
+					"console.erroricon.inactive.sml"
 				});
 			}
 		}

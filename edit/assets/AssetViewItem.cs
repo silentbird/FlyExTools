@@ -1,13 +1,6 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: edit.assets.AssetViewItem
-// Assembly: edit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 3ADECF35-F68B-48ED-B268-19248EA3422D
-// Assembly location: D:\W\UnityProj\PluginsProj\Assets\Plugins\Win\csharp\edit.dll
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEditor.IMGUI.Controls;
-
 
 namespace edit.assets
 {
@@ -19,9 +12,9 @@ namespace edit.assets
 
     public void Dsf(Action<AssetViewItem> call)
     {
-      if (this.children != null)
+      if (children != null)
       {
-        foreach (TreeViewItem child in this.children)
+        foreach (TreeViewItem child in children)
         {
           if (child is AssetViewItem assetViewItem)
             assetViewItem.Dsf(call);

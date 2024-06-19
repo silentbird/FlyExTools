@@ -4,23 +4,23 @@
   {
     private InvalidateType _mask;
 
-    public InvalidateCache(InvalidateType val = InvalidateType.Nothing) => this._mask = val;
+    public InvalidateCache(InvalidateType val = InvalidateType.Nothing) => _mask = val;
 
-    public void Add(InvalidateType property = InvalidateType.All) => this._mask |= property;
+    public void Add(InvalidateType property = InvalidateType.All) => _mask |= property;
 
     public bool Contains(InvalidateType property, InvalidateType args)
     {
-      return this.Contains(property) || this.Contains(args);
+      return Contains(property) || Contains(args);
     }
 
-    public void Remove(InvalidateType property) => this._mask &= ~property;
+    public void Remove(InvalidateType property) => _mask &= ~property;
 
-    public bool Contains(InvalidateType property) => (this._mask & property) != 0;
+    public bool Contains(InvalidateType property) => (_mask & property) != 0;
 
-    public bool Empty() => this._mask == InvalidateType.Nothing;
+    public bool Empty() => _mask == InvalidateType.Nothing;
 
-    public void Clear() => this._mask = InvalidateType.Nothing;
+    public void Clear() => _mask = InvalidateType.Nothing;
 
-    public override string ToString() => this._mask.ToString();
+    public override string ToString() => _mask.ToString();
   }
 }
