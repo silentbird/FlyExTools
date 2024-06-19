@@ -29,6 +29,8 @@ namespace edit.assets {
 		private TreeViewState _state;
 
 		private readonly AssetInfoCollection _collection = new AssetInfoCollection();
+		private static string REF_FILE => Path.Combine(Application.persistentDataPath, "AssetReferenceCollection.bin");
+
 
 		[MenuItem("Assets/杂项功能/查找引用关系")]
 		protected static void FindRef() {
@@ -136,13 +138,13 @@ namespace edit.assets {
 		}
 
 		protected void OnEnable() {
-			if (!_collection.Read("cache/AssetReferenceCollection.bin") || _collection.error) {
+			if (!_collection.Read(REF_FILE) || _collection.error) {
 				EditorUtility.DisplayDialog("Refresh", "由于 " + _collection.errmsg, "OK");
 				_collection.Clear();
 				_collection.allAssets = AssetDatabase.GetAllAssetPaths();
 				_collection.cancellable = false;
 				if (_collection.Refresh())
-					_collection.Write("cache/AssetReferenceCollection.bin");
+					_collection.Write(REF_FILE);
 			}
 
 			_displayMode = (AssetDisplayMode)PlayerPrefs.GetInt("__ASSET_REF_MODE_KEY__", 0);
@@ -222,7 +224,7 @@ namespace edit.assets {
 			if (!EditorUtility.DisplayDialog("读取", "是否重新读取缓存", "Yes", "No"))
 				return;
 			_collection.Clear();
-			_collection.Read("cache/AssetReferenceCollection.bin");
+			_collection.Read(REF_FILE);
 			if (!_collection.error)
 				return;
 			Debug.LogError(_collection.errmsg);
@@ -236,7 +238,7 @@ namespace edit.assets {
 			_collection.allAssets = AssetDatabase.GetAllAssetPaths();
 			if (!_collection.Refresh())
 				return;
-			_collection.Write("cache/AssetReferenceCollection.bin");
+			_collection.Write(REF_FILE);
 		}
 
 		private void on_mode_change() {

@@ -107,9 +107,9 @@ namespace edit.gui {
 				}
 			};
 			DropResult = new GUIStyle {
-				normal = {
-					background = PResourceManager.LoadTexture("icons/DropResultGrid.png")
-				},
+				// normal = {
+				// 	background = PResourceManager.LoadTexture("icons/DropResultGrid.png")
+				// },
 				border = new RectOffset(10, 10, 0, 0),
 				margin = new RectOffset(5, 5, 0, 0)
 			};
