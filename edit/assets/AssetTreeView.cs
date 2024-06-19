@@ -34,7 +34,7 @@ namespace edit.assets {
 		}
 
 
-		protected virtual void DoubleClickedItem(int id) {
+		protected override void DoubleClickedItem(int id) {
 			AssetViewItem assetViewItem = (AssetViewItem)FindItem(id, rootItem);
 			if (assetViewItem == null)
 				return;

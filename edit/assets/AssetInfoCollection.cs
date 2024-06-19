@@ -12,7 +12,6 @@ using UnityEngine;
 
 namespace edit.assets {
 	public class AssetInfoCollection {
-		public const string REF_FILE = "cache/AssetReferenceCollection.bin";
 		private readonly Dictionary<HashCode, AssetInfo> _guids = new Dictionary<HashCode, AssetInfo>();
 		private readonly Dictionary<string, AssetInfo> _paths = new Dictionary<string, AssetInfo>();
 		private readonly AssetNameIndexer _names = new AssetNameIndexer();
@@ -88,7 +87,7 @@ namespace edit.assets {
 				update_nestinfo();
 				EditorUtility.DisplayCancelableProgressBar(nameof(Refresh), "Write to cache", 1f);
 				EditorUtility.ClearProgressBar();
-				Debug.Log(string.Format("total cache: {0}, {1}", _guids.Count, _names.Count));
+				Debug.Log($"total cache: {_guids.Count}, {_names.Count}");
 			}
 			catch (Exception ex) {
 				errmsg = ex.ToString();
@@ -148,11 +147,11 @@ namespace edit.assets {
 				bundleName = assetBundleName
 			};
 			HashCode key = HashCode.Parse(guid);
-			if (_guids.ContainsKey(key))
+			if (!_guids.ContainsKey(key))
 				_guids[key] = asset;
 			else
 				_guids.Add(key, asset);
-			if (_paths.ContainsKey(assetPath))
+			if (!_paths.ContainsKey(assetPath))
 				_paths[assetPath] = asset;
 			else
 				_paths.Add(assetPath, asset);
