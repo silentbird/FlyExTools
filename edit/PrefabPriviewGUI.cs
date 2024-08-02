@@ -31,7 +31,7 @@ public class GameObjectPreview : ObjectPreview {
 
 
 		if (preview == null) {
-			string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(targetGameObject));
+			string guid = GetGUID(targetGameObject);
 
 			string pathname = Path.Combine("Assets", cachePreviewPath, guid + ".png");
 
@@ -44,10 +44,19 @@ public class GameObjectPreview : ObjectPreview {
 		GUI.DrawTexture(r, preview);
 	}
 
+	public static string GetGUID(GameObject target) {
+		string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(target));
+		if (string.IsNullOrEmpty(guid)) {
+			guid = target.GetInstanceID().ToString();
+		}
+
+		return guid;
+	}
+
 	public static Texture GeneratePreviewFile(GameObject target) {
 		Texture preview;
 		var targetGameObject = target as GameObject;
-		string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(targetGameObject));
+		string guid = GetGUID(targetGameObject);
 
 		string pathname = Path.Combine(cachePreviewPath, guid + ".png");
 		preview = GetAssetPreview(targetGameObject);
@@ -127,6 +136,7 @@ public class GameObjectPreview : ObjectPreview {
 
 		var tex = RTImage(renderCamera);
 
+		Object.DestroyImmediate(clone);
 		Object.DestroyImmediate(canvas_obj);
 		Object.DestroyImmediate(cameraObj);
 
