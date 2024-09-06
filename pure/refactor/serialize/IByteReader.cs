@@ -1,5 +1,5 @@
-﻿using pure.utils.mathTools;
-using System;
+﻿using System;
+using HashCode = pure.utils.mathTools.HashCode;
 
 namespace pure.refactor.serialize {
 	public interface IByteReader : IDisposable {

@@ -2,6 +2,7 @@
 using pure.database;
 using pure.utils.mathTools;
 using System;
+using HashCode = pure.utils.mathTools.HashCode;
 
 namespace pure.refactor.serialize
 {

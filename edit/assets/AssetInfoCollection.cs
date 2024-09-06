@@ -9,6 +9,7 @@ using pure.utils.mathTools;
 using pure.utils.memory;
 using UnityEditor;
 using UnityEngine;
+using HashCode = pure.utils.mathTools.HashCode;
 
 namespace edit.assets {
 	public class AssetInfoCollection {

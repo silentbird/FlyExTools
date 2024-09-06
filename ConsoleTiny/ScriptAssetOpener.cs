@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if UNITY_2019_1_OR_NEWER
+#else
+
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -351,3 +354,4 @@ namespace ConsoleTiny
         }
     }
 }
+#endif

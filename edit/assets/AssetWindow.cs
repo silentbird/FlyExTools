@@ -10,6 +10,7 @@ using pure.utils.task;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using HashCode = pure.utils.mathTools.HashCode;
 
 namespace edit.assets {
 	public class AssetWindow : EditorWindow {

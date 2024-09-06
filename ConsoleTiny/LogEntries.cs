@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if UNITY_2019_1_OR_NEWER
+#else
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -14,6 +17,7 @@ namespace ConsoleTiny
 {
     public class LogEntries
     {
+
         public static void Clear()
         {
             CoreLog.LogEntries.Clear();
@@ -1446,3 +1450,5 @@ namespace ConsoleTiny
         }
     }
 }
+
+#endif
