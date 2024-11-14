@@ -25,6 +25,10 @@ namespace FlyExTools.edit {
 			}
 
 			if (Event.current.type == EventType.KeyDown && Event.current.keyCode >= KeyCode.A && Event.current.keyCode <= KeyCode.Z) {
+				if (isRenaming()) {
+					return;
+				}
+
 				if (Time.realtimeSinceStartup - lastClickTime > .5f) {
 					searchText = "";
 				}
@@ -55,7 +59,6 @@ namespace FlyExTools.edit {
 		public static string GetCurrentDirectory() {
 			var projectBrowser = typeof(EditorWindow).Assembly.GetType("UnityEditor.ProjectBrowser");
 			var projectBrowserInstance = EditorWindow.focusedWindow;
-
 			var searchFilterField = projectBrowser.GetField("m_SearchFilter", BindingFlags.Instance | BindingFlags.NonPublic);
 			var m_SearchFilter = searchFilterField.GetValue(projectBrowserInstance);
 			//m_SearchFilter中取到public的folders
@@ -63,6 +66,21 @@ namespace FlyExTools.edit {
 			var folders = foldersField.GetValue(m_SearchFilter) as string[];
 
 			return folders.FirstOrDefault();
+		}
+
+		public static bool isRenaming() {
+			var projectBrowser = typeof(EditorWindow).Assembly.GetType("UnityEditor.ProjectBrowser");
+			var projectBrowserInstance = EditorWindow.focusedWindow;
+			var listAreaStateField = projectBrowser.GetField("m_ListAreaState", BindingFlags.Instance | BindingFlags.NonPublic);
+			var listAreaState = listAreaStateField.GetValue(projectBrowserInstance);
+			//m_SearchFilter中取到public的folders
+			var renameOverlayField = listAreaState.GetType().GetField("m_RenameOverlay", BindingFlags.Instance | BindingFlags.Public);
+			var renameOverlay = renameOverlayField.GetValue(listAreaState);
+			//m_SearchFilter中取到public的folders
+			var isRenamingFilenameField = renameOverlay.GetType().GetField("m_IsRenaming", BindingFlags.Instance | BindingFlags.NonPublic);
+			var isRenamine = (bool)isRenamingFilenameField.GetValue(renameOverlay);
+			Debug.Log(isRenamine);
+			return isRenamine;
 		}
 	}
 }
