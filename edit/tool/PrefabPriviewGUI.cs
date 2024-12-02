@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace FlyExTools.edit {
+namespace FlyExTools.edit.tool {
 	[CustomPreview(typeof(GameObject))]
 	public class GameObjectPreview : ObjectPreview {
 		Texture preview;

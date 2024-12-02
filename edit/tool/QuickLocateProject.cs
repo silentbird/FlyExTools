@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace FlyExTools.edit {
+namespace FlyExTools.edit.tool {
 	[InitializeOnLoad]
 	public class QuickLocateProject {
 		static QuickLocateProject() {
@@ -48,7 +48,7 @@ namespace FlyExTools.edit {
 					})
 					.ToArray();
 				if (matchingGuids.Length > 0) {
-					Selection.activeObject = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(guids[0]), typeof(Object));
+					Selection.activeObject = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(matchingGuids[0]), typeof(Object));
 					//ping the object
 					EditorGUIUtility.PingObject(Selection.activeObject);
 				}
@@ -79,7 +79,6 @@ namespace FlyExTools.edit {
 			//m_SearchFilter中取到public的folders
 			var isRenamingFilenameField = renameOverlay.GetType().GetField("m_IsRenaming", BindingFlags.Instance | BindingFlags.NonPublic);
 			var isRenamine = (bool)isRenamingFilenameField.GetValue(renameOverlay);
-			Debug.Log(isRenamine);
 			return isRenamine;
 		}
 	}

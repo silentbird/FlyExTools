@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace FlyExTools.edit {
+namespace FlyExTools.edit.tool {
 	[InitializeOnLoad]
 	public class MoveSelectedObject : Editor {
 		static float moveSpeed = 1f;
