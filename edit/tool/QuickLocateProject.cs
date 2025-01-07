@@ -14,6 +14,7 @@ namespace FlyExTools.edit.tool {
 		private static string firstGuid;
 		private static string searchText = "";
 		private static float lastClickTime;
+		private static KeyCode lastKeyCode;
 
 		private static void ProjectWindowItemOnGUI(string guid, Rect selectionRect) {
 			//only first one execute
@@ -24,7 +25,16 @@ namespace FlyExTools.edit.tool {
 				return;
 			}
 
+			if (Event.current.type == EventType.KeyDown) {
+				lastKeyCode = Event.current.keyCode;
+			}
+
 			if (Event.current.type == EventType.KeyDown && Event.current.keyCode >= KeyCode.A && Event.current.keyCode <= KeyCode.Z) {
+				if (lastKeyCode == KeyCode.LeftControl) {
+					lastKeyCode = Event.current.keyCode;
+					return;
+				}
+
 				if (isRenaming()) {
 					return;
 				}
