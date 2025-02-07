@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FlyExTools.edit.tool {
 	[CustomPreview(typeof(GameObject))]
@@ -71,6 +72,7 @@ namespace FlyExTools.edit.tool {
 
 		public static Texture GetAssetPreview(GameObject obj) {
 			GameObject canvas_obj = null;
+			CanvasScaler canvas_scaler = null;
 			GameObject clone = GameObject.Instantiate(obj);
 			Transform cloneTransform = clone.transform;
 
@@ -88,6 +90,10 @@ namespace FlyExTools.edit.tool {
 				//如果是UGUI节点的话就要把它们放在Canvas下了
 				canvas_obj = new GameObject("render canvas", typeof(Canvas));
 				Canvas canvas = canvas_obj.GetComponent<Canvas>();
+				canvas_scaler = canvas_obj.AddComponent<CanvasScaler>();
+				canvas_scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+				canvas_scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+				canvas_scaler.referenceResolution = new Vector2(640, 1136);
 				cloneTransform.parent = canvas_obj.transform;
 				cloneTransform.localPosition = Vector3.zero;
 				//canvas_obj.transform.position = new Vector3(-1000, -1000, -1000);
@@ -130,14 +136,15 @@ namespace FlyExTools.edit.tool {
 				renderCamera.fieldOfView = angle;
 			}
 
-			RenderTexture texture = new RenderTexture(128, 128, 0, RenderTextureFormat.Default);
+			RenderTexture texture = new RenderTexture(256, isUINode ? 256 * 1136 / 640 : 128, 0, RenderTextureFormat.Default);
 			renderCamera.targetTexture = texture;
 
 			var tex = RTImage(renderCamera);
 
-			Object.DestroyImmediate(clone);
-			Object.DestroyImmediate(canvas_obj);
-			Object.DestroyImmediate(cameraObj);
+			// Object.DestroyImmediate(clone);
+			// Object.DestroyImmediate(canvas_obj);
+			// Object.DestroyImmediate(canvas_scaler);
+			// Object.DestroyImmediate(cameraObj);
 
 
 			return tex;
