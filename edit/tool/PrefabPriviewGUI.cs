@@ -141,10 +141,10 @@ namespace FlyExTools.edit.tool {
 
 			var tex = RTImage(renderCamera);
 
-			// Object.DestroyImmediate(clone);
-			// Object.DestroyImmediate(canvas_obj);
-			// Object.DestroyImmediate(canvas_scaler);
-			// Object.DestroyImmediate(cameraObj);
+			Object.DestroyImmediate(clone);
+			Object.DestroyImmediate(canvas_obj);
+			Object.DestroyImmediate(canvas_scaler);
+			Object.DestroyImmediate(cameraObj);
 
 
 			return tex;
