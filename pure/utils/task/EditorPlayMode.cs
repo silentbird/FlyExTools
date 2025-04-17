@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using UnityEditor;
 
 namespace pure.utils.task {
@@ -41,3 +42,4 @@ namespace pure.utils.task {
 		public static bool isPlaying { get; private set; }
 	}
 }
+#endif
